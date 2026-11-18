@@ -17,7 +17,7 @@ apt-get update -qq
 apt-get install -y -qq --no-install-recommends \
     build-essential devscripts equivs fakeroot ca-certificates curl python3 >/dev/null
 
-rm -rf "$BUILD_DIR" /work/out && mkdir -p "$BUILD_DIR" /work/out
+rm -rf "$BUILD_DIR" /work/out && mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 dget -q -u -d "$SRC_URL"
 dpkg-source -x "linux-hwe-7.0_${UBUNTU_VERSION}.dsc" src
@@ -42,5 +42,6 @@ fakeroot debian/rules binary-headers $KOPTS
 fakeroot debian/rules binary-arch $KOPTS
 
 cd ..
+mkdir -p /work/out
 cp ./*.deb /work/out/
 ls -l /work/out
