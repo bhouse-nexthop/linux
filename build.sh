@@ -17,9 +17,16 @@ apt-get update -qq
 apt-get install -y -qq --no-install-recommends \
     build-essential devscripts equivs fakeroot ca-certificates curl python3 >/dev/null
 
-rm -rf "$BUILD_DIR" /work/out && mkdir -p "$BUILD_DIR"
+# $BUILD_DIR may be a mount point: empty it rather than removing it.
+mkdir -p "$BUILD_DIR"
+find "$BUILD_DIR" -mindepth 1 -delete
+rm -rf /work/out
 cd "$BUILD_DIR"
-dget -q -u -d "$SRC_URL"
+for i in 1 2 3 4 5; do
+    dget -q -u -d "$SRC_URL" && break
+    [ "$i" = 5 ] && exit 1
+    sleep 30
+done
 dpkg-source -x "linux-hwe-7.0_${UBUNTU_VERSION}.dsc" src
 cd src
 
