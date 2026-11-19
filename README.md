@@ -20,7 +20,7 @@ fail ("A nexthop fdb cannot be dynamic") and traffic to them floods to every VTE
 ## The patch
 
 Upstream 7308ef8b4a67 ("vxlan: Stop rejecting dynamic FDB entries with a nexthop ID"),
-with context adjusted for 7.0. Upstream 7.0.y is EOL, so Ubuntu has to cherry-pick it:
+taken verbatim from its linux-6.18.y backport, 370a55fb5dec; it applies cleanly to 7.0. Upstream 7.0.y is EOL, so Ubuntu has to cherry-pick it:
 [LP: #2174656](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2174656).
 
 ## Installing
